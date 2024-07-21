@@ -29,7 +29,7 @@ public class TimesheetPageService {
     }
 
     private TimesheetPageDto convert(Timesheet timesheet) {
-        Optional<Project> projectOpt = projectService.findById(timesheet.getProject().getId());
+        Optional<Project> projectOpt = projectService.findById(timesheet.getProject().getProjectId());
 
         if (projectOpt.isPresent()) {
             Project project = projectOpt.get();
@@ -38,7 +38,7 @@ public class TimesheetPageService {
 
             timesheetDto.setId(String.valueOf(timesheet.getId()));
             timesheetDto.setProjectName(project.getName());
-            timesheetDto.setProjectId(String.valueOf(project.getId()));
+            timesheetDto.setProjectId(String.valueOf(project.getProjectId()));
             timesheetDto.setMinutes(String.valueOf(timesheet.getMinutes()));
             timesheetDto.setCreatedAt(String.valueOf(timesheet.getCreatedAt()));
 

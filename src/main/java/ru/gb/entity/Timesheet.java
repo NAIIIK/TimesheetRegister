@@ -27,13 +27,17 @@ public class Timesheet {
     @JoinColumn(name = "project_id")
     private Project project;
 
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+
     @Override
     public String toString() {
         return "Timesheet{" +
                 "id=" + id +
                 ", minutes=" + minutes +
                 ", createdAt=" + createdAt +
-                ", project=" + project.getId() +
+                ", project=" + project.getProjectId() +
                 '}';
     }
 }

@@ -28,7 +28,7 @@ public class ProjectPageService {
     private ProjectPageDto convert(Project project) {
         ProjectPageDto projectDto = new ProjectPageDto();
 
-        projectDto.setId(String.valueOf(project.getId()));
+        projectDto.setId(String.valueOf(project.getProjectId()));
         projectDto.setName(project.getName());
         projectDto.setTimesheets(String.valueOf(project.getTimesheets()));
 
