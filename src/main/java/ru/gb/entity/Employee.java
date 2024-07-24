@@ -29,8 +29,10 @@ public class Employee {
 
     @Column(name = "projects")
     @ManyToMany
-    @JoinTable(name = "employee_project",
+    @JoinTable(
+            name = "employee_project",
             joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id"))
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
     private List<Project> projects = new ArrayList<>();
 }

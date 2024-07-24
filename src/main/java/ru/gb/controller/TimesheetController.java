@@ -1,5 +1,8 @@
 package ru.gb.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +19,24 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/timesheets")
 @RequiredArgsConstructor
+@Tag(name = "Табели учета рабочего времени", description = "API для работы с табелями учета рабочего времени")
 public class TimesheetController {
 
     private final TimesheetService service;
 
+    @Operation(summary = "Просмотр табеля", description = "Просмотр табеля по идентификатору")
     @GetMapping("/{id}")
-    public ResponseEntity<Timesheet> get(@PathVariable Long id) {
+    public ResponseEntity<Timesheet> get(@PathVariable @Parameter(description = "ID табеля") Long id) {
         Optional<Timesheet> timesheetOpt = service.findById(id);
 
         if (timesheetOpt.isPresent()) return ResponseEntity.status(HttpStatus.OK).body(timesheetOpt.get());
         throw new NoSuchElementException();
     }
 
+    @Operation(summary = "Просмотр всех табелей", description = "Просмотр всех табелей с возможностью фильтрации")
     @GetMapping
-    public ResponseEntity<List<Timesheet>> getAll(@RequestParam(value = "createdAfter", required = false) String createdAfter,
-                                                  @RequestParam(value = "createdBefore", required = false) String createdBefore) {
+    public ResponseEntity<List<Timesheet>> getAll(@RequestParam(value = "createdAfter", required = false) @Parameter(description = "Дата для фильтрации табелей, созданных позже указанного значения") String createdAfter,
+                                                  @RequestParam(value = "createdBefore", required = false) @Parameter(description = "Дата для фильтрации табелей, созданных раньше указанного значения") String createdBefore) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
 
         if (createdAfter != null) {
@@ -55,6 +61,7 @@ public class TimesheetController {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
+    @Operation(summary = "Создание нового табеля")
     @PostMapping
     public ResponseEntity<Timesheet> create(@RequestBody Timesheet timesheet) {
         timesheet = service.save(timesheet);
@@ -64,8 +71,9 @@ public class TimesheetController {
         return ResponseEntity.status(HttpStatus.CREATED).body(timesheet);
     }
 
+    @Operation(summary = "Удаление табеля", description = "Удаление табеля по идентификатору")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable @Parameter(description = "ID табеля") Long id) {
         service.deleteById(id);
 
         return ResponseEntity.noContent().build();
