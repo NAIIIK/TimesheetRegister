@@ -1,14 +1,11 @@
 package ru.gb.security;
 
-import com.sun.source.tree.BinaryTree;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import ru.gb.entity.Role;
 import ru.gb.entity.User;
 import ru.gb.repository.RoleRepository;
 import ru.gb.repository.UserRepository;
@@ -16,7 +13,6 @@ import ru.gb.repository.UserRoleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
