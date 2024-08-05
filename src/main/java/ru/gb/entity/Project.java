@@ -17,7 +17,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long projectId;
 
     @Column(name = "name")
     private String name;
@@ -28,10 +28,13 @@ public class Project {
     @JsonIgnore
     private List<Timesheet> timesheets = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "projects")
+    private List<Employee> employees = new ArrayList<>();
+
     @Override
     public String toString() {
         return "Project{" +
-                "id=" + id +
+                "id=" + projectId +
                 ", name='" + name + '\'' +
                 ", timesheets=" + timesheets +
                 '}';
