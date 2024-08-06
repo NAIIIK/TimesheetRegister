@@ -3,11 +3,9 @@ package ru.gb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import ru.gb.entity.Role;
-import ru.gb.entity.User;
-import ru.gb.entity.UserRole;
-import ru.gb.entity.UserRoleId;
+import ru.gb.entity.*;
 import ru.gb.repository.RoleRepository;
+import ru.gb.repository.TimesheetRepository;
 import ru.gb.repository.UserRepository;
 import ru.gb.repository.UserRoleRepository;
 
@@ -18,6 +16,10 @@ public class Application {
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(Application.class, args);
+
+		TimesheetRepository timesheetRepository = ctx.getBean(TimesheetRepository.class);
+
+		timesheetRepository.save(new Timesheet());
 
 		UserRoleRepository userRoleRepository = ctx.getBean(UserRoleRepository.class);
 		UserRepository userRepository = ctx.getBean(UserRepository.class);
