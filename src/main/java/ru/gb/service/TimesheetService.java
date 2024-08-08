@@ -2,6 +2,7 @@ package ru.gb.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.gb.aspect.Timer;
 import ru.gb.entity.Employee;
 import ru.gb.entity.Project;
 import ru.gb.entity.Timesheet;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Timer
 public class TimesheetService {
 
     private final TimesheetRepository timesheetRepository;
@@ -24,10 +26,12 @@ public class TimesheetService {
 
     private final EmployeeRepository employeeRepository;
 
+//    @Timer
     public Optional<Timesheet> findById (Long id) {
         return timesheetRepository.findById(id);
     }
 
+//    @Timer(enabled = false)
     public List<Timesheet> findAll() {
         return timesheetRepository.findAll();
     }

@@ -28,7 +28,7 @@ public class Timesheet {
     private Project project;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @Override
